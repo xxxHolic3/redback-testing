@@ -1,0 +1,121 @@
+Description: Fix Makefile in order to allow debhelper to inject all pertinent compilation flags and allow overriding CC (needed for cross compiling). Also set proper paths to binary and man page.
+Author: Marcos Fouces <marcos.fouces@gmail.com>
+Author: Samuel Henrique <samueloph@debian.org>
+
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+
+--- a/Makefile
++++ b/Makefile
+@@ -12,13 +12,15 @@
+ 
+ VERSION=5.8.4
+ 
+-CC=gcc
++CC      ?= gcc
+ LD=$(CC)
+ 
+ INCLUDEDIR=src/include
+-CFLAGS=-std=gnu11
+-LDFLAGS=
+-LDLIBS=
++CFLAGS	+=-std=gnu11
++#LDFLAGS=
++#LDLIBS=
++MANDIR  = $(DESTDIR)/usr/share/man/man8/
++BINDIR  = $(DESTDIR)/usr/sbin/
+ 
+ # Check GCC version (must be 5 or greater)
+ # OBS: This makes compilation GCC dependent (cannot use clang).
+@@ -38,30 +40,30 @@
+   # Optimization level 2 (better results) and no canaries.
+   CFLAGS += -O2 -DNDEBUG
+ 
+-  ARCHITECTURE = $(shell arch)
+-
+-  # Options for x86-64
+-  ifeq ($(ARCHITECTURE),x86_64)
+-    CFLAGS += -march=native -ftree-vectorize -flto -fno-stack-protector
+-    LDFLAGS += -flto
+-  endif
+-  # Options for i386
+-  ifeq ($(ARCHITECTURE),i686)
+-    CFLAGS += -march=native -flto -fno-stack-protector
+-    LDFLAGS += -flto
+-  endif
+-
+-	# TODO: tunning for cortex-a#?
+-  # Options for ARMv7-a
+-  ifneq ($(findstr armv7,$(ARCHITECTURE)),)
+-    CFLAGS += -march=armv7-a -fno-stack-protector -flto
+-    LDFLAGS += -flto
+-  endif
+-  # Options for ARMv8-a
+-  ifneq ($(findstr armv8,$(ARCHITECTURE)),)
+-    CFLAGS += -march=armv8-a -fno-stack-protector -flto
+-    LDFLAGS += -flto
+-  endif
++#  ARCHITECTURE = $(shell arch)
++#
++#  # Options for x86-64
++#  ifeq ($(ARCHITECTURE),x86_64)
++#    CFLAGS += -ftree-vectorize -flto -fno-stack-protector
++#    LDFLAGS += -flto
++#  endif
++#  # Options for i386
++#  ifeq ($(ARCHITECTURE),i686)
++#    CFLAGS += -flto -fno-stack-protector
++#    LDFLAGS += -flto
++#  endif
++#
++#	# TODO: tunning for cortex-a#?
++#  # Options for ARMv7-a
++#  ifneq ($(findstr armv7,$(ARCHITECTURE)),)
++#    CFLAGS += -march=armv7-a -fno-stack-protector -flto
++#    LDFLAGS += -flto
++#  endif
++#  # Options for ARMv8-a
++#  ifneq ($(findstr armv8,$(ARCHITECTURE)),)
++#    CFLAGS += -march=armv8-a -fno-stack-protector -flto
++#    LDFLAGS += -flto
++#  endif
+ 
+   # strip symbols and turn more linker optimizations on (if available).
+   LDFLAGS += -s -O2
+@@ -74,7 +76,7 @@
+ 	CFLAGS += -DUSE_ANSI
+ endif
+ 
+-EXECUTABLE=bin/t50
++EXECUTABLE=t50
+ 
+ OBJECTS=\
+ src/cidr.o \
+@@ -148,21 +150,15 @@
+ endef
+ 
+ # install and uninstall rules are very simple!
+-install:
+-	@$(call checkifroot)
+-	@if [ ! -e "$(EXECUTABLE)" ]; then \
+-		echo "Try 'make' first."; \
+-		exit 1; \
+-	fi;
+-	cp bin/t50 /sbin/; cp doc/t50.8 /usr/share/man/man8/; \
+-	chown root: /sbin/t50 /usr/share/man/man8; \
+-	chmod 0750 /sbin/t50; \
+-	gzip -9 /usr/share/man/man8/t50.8; \
+-	chmod 0664 /usr/share/man/man8/t50.8.gz
++install: t50
++	install -d $(BINDIR) $(MANDIR)
++	install -m750 -o 0 -g 0 t50           	$(BINDIR)
++	gzip -9 doc/t50.8;
++	install -m664 doc/t50.8.gz		$(MANDIR)
+ 
+ uninstall:
+ 	@$(call checkifroot)
+-	rm /sbin/t50 /usr/share/man/man8/t50.8.gz
++	rm $(BINDIR)/t50 $(MANDIR)/man8/t50.8.gz
+ 
+ # Needed to build the project source tarball (no signature generation here).
+ dist: distclean

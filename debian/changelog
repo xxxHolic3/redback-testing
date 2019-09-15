@@ -1,0 +1,211 @@
+t50 (5.8.4-1redback0) disco; urgency=medium
+
+  * Backport for Redback Linux.
+
+ -- Agung "ParaN0id" Ichiruki <agung.ichiruki@gmail.com>  Sun, 15 Sep 2019 22:41:21 +0000
+
+t50 (5.8.4-1) UNRELEASED; urgency=medium
+
+  * New upstream version 5.8.4
+  * Refresh patches.
+  * Fix FTCBFS: Use the makefile buildsystem for dh_auto_build.
+    Thanks to Helmut Grohne (Closes: #930208).
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Sun, 26 May 2019 22:41:21 +0200
+
+t50 (5.8.3-2) unstable; urgency=medium
+
+  * d/p/01_Fix-Makefile.patch: Remove buggy Arch detection and specific flags.
+
+ -- Samuel Henrique <samueloph@debian.org>  Mon, 13 May 2019 23:44:32 +0100
+
+t50 (5.8.3-1) unstable; urgency=medium
+
+  * New upstream version 5.8.3
+  * Rework patches for new upstream version.
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Fri, 30 Nov 2018 00:10:19 +0100
+
+t50 (5.8.2-3) unstable; urgency=high
+
+  * d/p/01_Fix-Makefile.patch: Update to remove march-native flag,
+    there was still flag missed by the last change for i686.
+
+ -- Samuel Henrique <samueloph@debian.org>  Mon, 12 Nov 2018 12:39:00 -0200
+
+t50 (5.8.2-2) unstable; urgency=high
+
+  * d/u/metadata: update urls to gitlab
+  * d/p/01_Fix-Makefile.patch: Update to remove march-native flag
+    (closes: #911971)
+
+ -- Samuel Henrique <samueloph@debian.org>  Fri, 26 Oct 2018 16:38:49 -0300
+
+t50 (5.8.2-1) unstable; urgency=medium
+
+  [ Marcos Fouces ]
+  * New upstream version 5.8.2
+  * Bump to Standards-Version: 4.2.1 (no changes required)
+  * Delete all previous patches as patched files no longer exists.
+  * Create 01_Fix-Makefile.patch
+  * Update control, copyright and watch file to reflect new homepage at Gitlab.
+  * Update pgpsigurlmangle option in watch file
+
+  [ Samuel Henrique ]
+  * Update my email to @debian.org
+
+  [ Raphaël Hertzog ]
+  * Update watch file to track sf.net with GPG signature.
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Tue, 25 Sep 2018 23:36:39 +0200
+
+t50 (5.7.1-1) unstable; urgency=medium
+
+  [ Samuel Henrique ]
+  * d/control: fix Description indentation
+
+  [ Raphaël Hertzog ]
+  * Update team maintainer address to
+    Debian Security Tools <team+pkg-security@tracker.debian.org>
+  * Update Vcs-Git and Vcs-Browser for the move to salsa.debian.org
+
+  [ Marcos Fouces ]
+  * Use secure url format in copyright file
+  * Update copyright year
+  * Bump to dh compat level 11
+  * New upstream version 5.7.1
+  * Rework patches for new upstream release
+    ~ Remove manpage_typos.patch (applied upstream)
+    ~ Refresh disable-native.patch
+    ~ Add fix-flags.patch
+  * Add cryptographic signature verification
+  * Add some upstream metadata
+  * Bump to Standards-version 4.1.3
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Sun, 11 Mar 2018 16:21:53 +0100
+
+t50 (5.7.0-2) unstable; urgency=medium
+
+  * Do not use "native" flags (Closes: #870087)
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 29 Jul 2017 19:51:17 +0200
+
+t50 (5.7.0-1) unstable; urgency=medium
+
+  * New upstream version 5.7.0
+  * d/p/manpage_typos: new patch to fix typos
+  * d/watch: mangle beta/alpha releases
+
+ -- Samuel Henrique <samueloph@debian.org>  Sat, 29 Jul 2017 10:31:14 -0300
+
+t50 (5.6.15-1) unstable; urgency=medium
+
+  * New upstream version 5.6.15
+  * d/patches: remove all patches, applied upstream, thanks to Lukas
+    Schwaighofer <lukas@schwaighofer.name> for helping with makefile flags.
+
+ -- Samuel Henrique <samueloph@debian.org>  Mon, 03 Jul 2017 21:55:12 -0300
+
+t50 (5.6.13-2) unstable; urgency=medium
+
+  * d/p/ftbfs_i386: new patch to remove extra comma. Thanks to
+    "Fernando Debian" for the help confirming and testing the fix
+    (closes: #865785).
+
+ -- Samuel Henrique <samueloph@debian.org>  Sun, 25 Jun 2017 13:12:09 -0300
+
+t50 (5.6.13-1) unstable; urgency=medium
+
+  * New upstream version 5.6.13
+  * Remove unneeded patch. Upstream doesn't use CPU
+    specific flags anymore.
+  * Remove unneeded dh-autoreconf build dependency. dh 10
+    use it by default.
+
+  [ Samuel Henrique ]
+  * Bump Standards-Version to 4.0.0.
+  * debian/patch/gcc_flags: New patch to address CFLAGS, needed for new release.
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Sun, 18 Jun 2017 22:33:38 +0200
+
+t50 (5.6.8-1) unstable; urgency=medium
+
+  * New upstream version 5.6.8
+  * Delete disable-linux-test.patch. It is already applied upstream.
+  * Update to debhelper 10.
+
+ -- Marcos Fouces <mfouces@yahoo.es>  Wed, 12 Oct 2016 21:18:13 +0200
+
+t50 (5.6.7-2) unstable; urgency=high
+
+  * debian/patches/disable-linux-test.patch: Create patch to avoid FTBFS on
+    systems where host_os != linux-gnu. Thanks to Gianfranco Costamagna.
+
+ -- Marcos Fouces <mfouces@yahoo.es>  Mon, 05 Sep 2016 18:30:46 +0200
+
+t50 (5.6.7-1) unstable; urgency=medium
+
+  * New upstream version 5.6.7
+  * Fix set-proper-compiler-flags.patch to reflect upstream changes.
+
+ -- Marcos Fouces <mfouces@yahoo.es>  Thu, 01 Sep 2016 22:59:52 +0200
+
+t50 (5.6.6-1) unstable; urgency=high
+
+  * New upstream release.
+  * debian/patches:
+    - series: Remove fix-spelling-errors.patch, applied upstream.
+    - autoreconf-version-number.patch: Add patch, upstream forgot to change
+      version number.
+    - set-proper-compiler-flags.patch: Update to reflect upstream changes.
+
+ -- Samuel Henrique <samueloph@debian.org>  Mon, 29 Aug 2016 10:19:21 -0300
+
+t50 (5.6.4-2) unstable; urgency=medium
+
+  [ Samuel Henrique ]
+  * Change debian/patches/set-proper-compiler-flags.patch to empty CFLAGS.
+    The build system will inject sane default flags for us. We thus get
+    rid of the problematic -march=native.
+  * Enable pie hardening, it seems to work.
+  * Bump watch to v4.
+  * Add myself as an uploader.
+  * Add myself as copyright holder.
+
+  [ Marcos ]
+  * Fix changelog and control file
+
+  [ Raphaël Hertzog ]
+  * Set architecture to linux-any.
+
+ -- Samuel Henrique <samueloph@debian.org>  Fri, 26 Aug 2016 10:21:16 +0200
+
+t50 (5.6.4-1) unstable; urgency=low
+
+  * Initial release to Debian.
+  * Fix watch file
+  * Imported Upstream version 5.6.4
+  * Delete rules file overrides
+  * Delete dirs file. No need for it
+  * Set proper values to control file fields
+  * Build with autoreconf
+  * Set hardening options
+  * Fix description field in control file
+  * Fix minor spelling errors. Lintian is happier now
+  * Fix copyright file
+  * Bump standards-version to 3.9.8
+  * Include README.modules in docs.
+
+ -- Marcos Fouces <mfouces@yahoo.es>  Thu, 28 Jul 2016 11:47:05 +0200
+
+t50 (5.4.1-rc1-1kali1) kali; urgency=low
+
+  * Fixed build for 32 bit
+
+ -- Devon Kearns <dookie@kali.org>  Thu, 27 Dec 2012 05:46:12 -0700
+
+t50 (5.4.1-rc1-1kali0) kali; urgency=low
+
+  * Initial release
+
+ -- Devon Kearns <dookie@kali.org>  Wed, 26 Dec 2012 11:18:29 -0700

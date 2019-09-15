@@ -1,0 +1,28 @@
+Source: t50
+Section: utils
+Priority: optional
+Maintainer: Debian Security Tools <team+pkg-security@tracker.debian.org>
+Uploaders: Marcos Fouces <marcos.fouces@gmail.com>,
+           Samuel Henrique <samueloph@debian.org>
+Build-Depends: debhelper (>=12~)
+Standards-Version: 4.4.0
+Homepage: https://gitlab.com/fredericopissarra/t50
+Vcs-Browser: https://salsa.debian.org/pkg-security-team/t50
+Vcs-Git: https://salsa.debian.org/pkg-security-team/t50.git
+
+Package: t50
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multi-protocol packet injector tool
+ Multi-protocol packet injector tool for *nix systems,
+ actually supporting 15 protocols.
+ .
+ Features:
+ .
+  - Flooding
+  - CIDR support
+  - TCP, UDP, ICMP, IGMPv2, IGMPv3, EGP, DCCP, RSVP, RIPv1,
+    RIPv2, GRE, ESP, AH, EIGRP and OSPF support.
+  - TCP Options.
+  - High performance.
+  - Can hit about 1.000.000 packets per second.
